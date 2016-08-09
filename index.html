@@ -24,10 +24,17 @@
       var url = canvas.toDataURL()
       document.body.style.cursor = 'url('+url+') 128 128, crosshair'
 
-      var x, y
+      var x, y, t=0
       document.body.addEventListener('mousemove', function(e){
         x = e.clientX / window.innerWidth
         y = e.clientY / window.innerHeight
+
+        ctx.fillStyle = 'hsla('+(t++)%360+',50%,50%,0.4)'
+        ctx.clearRect(0,0,128,128)
+        ctx.beginPath()
+        ctx.arc(64,64,(t*4)%56 + 12,0,Math.PI*2)
+        ctx.fill()
+        var url = canvas.toDataURL()
 
         document.body.style.cursor = 'url('+url+') '+(1-x)*128+' '+(1-y)*128+', crosshair'
 
