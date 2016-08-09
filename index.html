@@ -3,17 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>cursory hack</title>
+    <style media="screen">
+      body {height:100vh}
+    </style>
   </head>
   <body>
     <script type="text/javascript">
+
+      // limit for cursor size is 128
       var canvas = document.createElement('canvas')
-      canvas.width = canvas.height = 300
+      canvas.width = canvas.height = 128
 
       var ctx = canvas.getContext('2d')
 
-      ctx.fillStyle = 'rgba(0,0,0,0.4)'
+      ctx.fillStyle = 'rgba(255,0,0,0.4)'
       ctx.beginPath()
-      ctx.arc(150,150,100,0,Math.PI*2)
+      ctx.arc(64,64,64,0,Math.PI*2)
       ctx.fill()
 
       var url = canvas.toDataURL()
