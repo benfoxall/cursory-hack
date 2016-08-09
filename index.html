@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- https://github.com/benfoxall/cursory-hack/ -->
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -15,34 +18,49 @@
       canvas.width = canvas.height = 128
 
       var ctx = canvas.getContext('2d')
-
-      ctx.fillStyle = 'rgba(255,0,0,0.4)'
-      ctx.beginPath()
-      ctx.arc(64,64,64,0,Math.PI*2)
-      ctx.fill()
-
-      var url = canvas.toDataURL()
-      document.body.style.cursor = 'url('+url+') 128 128, crosshair'
+      ctx.fillStyle = 'rgba(255,0,100,0.8)'
+      ctx.strokeStyle = 'rgba(255,0,100,0.5)'
 
 
-      var x, y, t=0, animation;
+      var cx, cy, x, y, animation
 
       document.body.addEventListener('mousemove', function(e){
-        x = e.clientX / window.innerWidth
-        y = e.clientY / window.innerHeight
+        cx = e.clientX
+        cy = e.clientY
+        x = cx / window.innerWidth
+        y = cy / window.innerHeight
 
         if(!animation) animation = requestAnimationFrame(animate)
       })
 
       function animate(time){
         animation = null
-        t++
 
-        ctx.fillStyle = 'hsla('+(time/10)%360+',50%,50%,0.4)'
         ctx.clearRect(0,0,128,128)
+
+        // THIS IS SUPER UGLY,
+        // BUT YOU GET THE IDEA, YEAH?
+
+        var angle = Math.atan2(x-.5, y-.5)
+        var extent = Math.max(Math.abs(x-.5), Math.abs(y-.5)) * 2
+
+        ctx.save()
+        ctx.translate(64, 64)
+        ctx.rotate(-angle)
+        ctx.translate(-64, -64)
+
         ctx.beginPath()
-        ctx.arc(64,64,(t*4)%56 + 12,0,Math.PI*2)
+        ctx.arc(64,64 + (54*extent),10,0,Math.PI*2)
         ctx.fill()
+
+        ctx.beginPath()
+        ctx.moveTo(64,64 + (54*extent))
+        ctx.lineTo(64,(1-extent) * 64)
+        ctx.stroke()
+
+
+        ctx.restore()
+
         var url = canvas.toDataURL()
 
         document.body.style.cursor = 'url('+url+') '+(1-x)*128+' '+(1-y)*128+', crosshair'
