@@ -8,7 +8,7 @@ See [the live version]((https://benjaminbenben.com/cursory-hack/)).
 
 This works using the following:
 * you can set a custom css cursor up to 128x128px
-* you can specify an alignment of that cursor (effectively letting you touch a 256x256px are)
+* you can specify an alignment of that cursor (effectively letting you touch a 256x256px area)
 * you can generate the cursor image dynamically using data-uris
 
 
